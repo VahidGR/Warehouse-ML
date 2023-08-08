@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "2758E55A-6E7D-48FA-8B82-0473DF5759FD",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "WarehouseTests",
+        "name" : "WarehouseTests"
+      }
+    }
+  ],
+  "version" : 1
+}
