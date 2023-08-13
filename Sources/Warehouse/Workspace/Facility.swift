@@ -15,15 +15,20 @@ final class Facility<U: Goods>: Storage {
         return placingIndex == nil
     }
     
+    /// find index to place new item - level mid
     private var placingIndex: Int? {
         return self.goods.firstIndex(where: { $0 == nil })
     }
     
     init(capacity: Int) {
+        //create array with spacific size - level junior
         goods = .init(repeating: nil, count: capacity)
     }
     
     func store<T>(_ goods: T) throws {
+        
+        //Add item without change array size - level junior
+        //handle possible errors - level mid
         guard let place = placingIndex
         else
         {

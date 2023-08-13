@@ -14,7 +14,7 @@ struct ColdStorage: Storage {
     init(repositories: [Storage]) {
         self.repositories = repositories
     }
-    
+    
     func store<T>(_ goods: T) throws where T : Goods {
         let facilities = try correspondingFacilities(for: T.self)
         guard let facility = facilities
