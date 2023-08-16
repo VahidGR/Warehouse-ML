@@ -22,8 +22,8 @@ final class Warehouse {
 
         for item in goods {
             dispatchGroup.enter()
-            DispatchQueue.global(qos: .utility).sync { [weak self] in
-                guard let self else { return }
+            // for this excercise, uncomment line 14 on file WarehouseTests.swift
+            DispatchQueue.global(qos: .utility).sync {
                 defer { dispatchGroup.leave() }
                 do {
                     try self.storageFacility.store(item)
