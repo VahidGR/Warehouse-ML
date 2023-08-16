@@ -44,7 +44,3 @@ final class Warehouse {
         return try storageFacility.collectReport(for: T.self)
     }
 }
-
-struct CombinedError: Error {
-    let errors: [Error]
-}

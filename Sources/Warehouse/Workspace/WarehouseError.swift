@@ -26,3 +26,7 @@ enum WarehouseError: Error {
         }
     }
 }
+
+struct CombinedError: Error {
+    let errors: [Error]
+}
