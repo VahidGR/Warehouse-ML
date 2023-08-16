@@ -15,20 +15,19 @@ final class Facility<U: Goods>: Storage {
         return placingIndex == nil
     }
     
-    /// find index to place new item - level mid
+    /// find index to place new item
     private var placingIndex: Int? {
         return self.goods.firstIndex(where: { $0 == nil })
     }
     
     init(capacity: Int) {
-        //create array with spacific size - level junior
-        goods = .init(repeating: nil, count: capacity)
+        // create array with spacific size
+        // return array with size of capacity
     }
     
     func store<T>(_ goods: T) throws {
         
-        //Add item without change array size - level junior
-        //handle possible errors - level mid
+        /// Add item without change array size - level junior
         guard let place = placingIndex
         else
         {
@@ -39,8 +38,9 @@ final class Facility<U: Goods>: Storage {
         {
             throw WarehouseError.unsupportedGoods
         }
-        
-        self.goods[place] = item
+        /// Item is relevant
+        /// There's space for one goods at least
+        // Add item here
     }
     
     func collectReport() -> Facility.Report {
