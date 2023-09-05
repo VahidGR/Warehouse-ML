@@ -31,22 +31,14 @@ struct ColdStorage: Storage {
         let reports: [Facility<T>.Report] = facilities.compactMap({
             $0.collectReport()
         })
-        guard !reports.isEmpty
-                else
-        {
-            throw WarehouseError.unsupportedFacility
-        }
         return reports
     }
     
     private func correspondingFacilities<T: Goods>(for goods: T.Type) throws -> [Facility<T>] {
-        let facilities = repositories
-            .compactMap({ $0 as? Facility<T> })
-        guard !facilities.isEmpty
-        else
-        {
-            throw WarehouseError.unsupportedFacility
-        }
-        return facilities
+		/// `self.repositories` is an array of facilities
+		/// Each `Facility` is bound to support only one type of goods. ex: `Fruit`, `Meat`, `Vegies`
+		/// Find all of facilities that support goods with type of `T`
+		/// If no corresponding facility is found, throw `WarehouseError.unsupportedFacility`
+        return facilities /// Corresponding to `T`
     }
 }

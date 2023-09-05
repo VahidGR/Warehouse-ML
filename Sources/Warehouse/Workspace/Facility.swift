@@ -8,43 +8,42 @@
 import Foundation
 
 final class Facility<U: Goods>: Storage {
-    
-    private var goods: [U?]
-    
-    public var isAtFullCapacity: Bool {
-        return placingIndex == nil
-    }
-    
-    /// find index to place new item
-    private var placingIndex: Int? {
-        return self.goods.firstIndex(where: { $0 == nil })
-    }
-    
-    init(capacity: Int) {
-        // create array with spacific size
-        // return array with size of capacity
-    }
-    
-    func store<T>(_ goods: T) throws {
-        
-        /// Add item without change array size - level junior
-        guard let place = placingIndex
-        else
-        {
-            throw WarehouseError.full
-        }
-        guard let item = goods as? U
-        else
-        {
-            throw WarehouseError.unsupportedGoods
-        }
-        /// Item is relevant
-        /// There's space for one goods at least
-        // Add item here
-    }
-    
+	
+	private var goods: [U?]
+	
+	public var isAtFullCapacity: Bool {
+		return firstAvailableSpace == nil
+	}
+	
+	/// find index to place new item
+	
+	private var firstAvailableSpace: Int? {
+		/*
+		return firstAvailableSpace
+		 */
+	}
+	
+	init(capacity: Int) {
+		/// create array with size of capacity
+		/*
+		self.goods = /// a fixed size of capacity
+		 */
+	}
+	
+	func store<T>(_ goods: T) throws where T: Goods {
+		/// `Goods` must match `U`
+		/// Facility must have enough storage space for `goods`. If not, throw `WarehouseError.full`
+		/// To make it efficient for the facility worker, item must be placed at the ``first available space``
+		///
+		///
+		/// Add item without change array size
+		///
+		/// If tem is irrelevant, throw `WarehouseError.unsupportedGoods`
+	}
+	
     func collectReport() -> Facility.Report {
-        return .init(capacity: goods.count, isAtFullCapacity: isAtFullCapacity, filledPlaces: placingIndex)
+		/// Fill in number of items inside this facility
+		return .init(capacity: goods.count, isAtFullCapacity: isAtFullCapacity, filledPlaces: <#Int#>)
     }
     
     struct Report {

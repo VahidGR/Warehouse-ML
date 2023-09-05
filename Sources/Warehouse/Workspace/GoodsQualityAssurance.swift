@@ -18,9 +18,7 @@ final class GoodsQualityAssurance: QualityAssurance {
     /// filter goods base on expiry_date and warehouseThresholdPolicy
     /// - Parameter goods: goods that require to filter
     func tailorGoods(_ goods: inout [Goods]) throws {
-        
         /// Throw out all of the spoiled good
-        /// If all of the goos are expired, throw badGoods error of WarehouseError, that should fine the client
-        
+        /// If all of the goods are expired, throw badGoods error of WarehouseError, that should fine the client
     }
 }

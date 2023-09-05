@@ -11,7 +11,7 @@ final class WarehouseTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
-        // XCTAssertNil(warehouse)
+        XCTAssertNil(warehouse)
     }
     
     func testStore_allGoods() throws {
@@ -136,7 +136,7 @@ final class WarehouseTests: XCTestCase {
             let combinedError = systemError as! CombinedError
             combinedError.errors.forEach({ err in
                 let error = err as! WarehouseError
-                XCTAssertEqual(error.localizedDescription, WarehouseError.full.localizedDescription)
+                XCTAssert(error == WarehouseError.full)
             })
             XCTAssertEqual(combinedError.errors.count, 5)
         }
@@ -155,7 +155,43 @@ final class WarehouseTests: XCTestCase {
         
         self.warehouse = sut
     }
+	
+	func testFacilitySupportedGoods() throws {
+		let sut = Facility<Vegetable>(capacity: 1)
+		let vegies = Vegetable(expiry: 14_000, name: .parsey)
+		XCTAssertNoThrow(try sut.store(vegies))
+	}
     
+	func testFacilityUnsupportedGoods() throws {
+		let sut = Facility<Fruit>(capacity: 1)
+		let meat = Meat(expiry: 14_000, name: .fish)
+		XCTAssertThrowsError(try sut.store(meat)) { exception in
+			let error = exception as? WarehouseError
+			XCTAssertNotNil(error)
+			XCTAssert(error == WarehouseError.unsupportedGoods)
+		}
+	}
+	
+	func testFacilityFull() throws {
+		let sut = Facility<Fruit>(capacity: 0)
+		let meat = Meat(expiry: 14_000, name: .fish)
+		XCTAssertThrowsError(try sut.store(meat)) { exception in
+			let error = exception as? WarehouseError
+			XCTAssertNotNil(error)
+			XCTAssert(error == WarehouseError.full)
+		}
+	}
+	
+	func testColdStorageUnsopportedWareHouseReport() {
+		let sut = ColdStorage(repositories: [])
+		
+		XCTAssertThrowsError(try sut.collectReport(for: Fruit.self)) { exception in
+			let error = exception as? WarehouseError
+			XCTAssertNotNil(error)
+			XCTAssert(error == WarehouseError.unsupportedFacility)
+		}
+	}
+	
     private func validateReport<T: Goods>(
         of goods: T.Type,
         for warehouse: Warehouse,

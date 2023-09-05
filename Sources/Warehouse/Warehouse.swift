@@ -22,7 +22,7 @@ final class Warehouse {
 
         for item in goods {
             dispatchGroup.enter()
-            // for this excercise, uncomment line 14 on file WarehouseTests.swift
+            /// Review the code below. Any issues?
             DispatchQueue.global(qos: .utility).sync {
                 defer { dispatchGroup.leave() }
                 do {
